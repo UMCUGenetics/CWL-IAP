@@ -1,0 +1,3 @@
+[submodule "CWL-CommandLineTools"]
+	path = CWL-CommandLineTools
+	url = https://github.com/UMCUGenetics/CWL-CommandLineTools.git
