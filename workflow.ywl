@@ -3,7 +3,7 @@ genome:
     path: /hpc/tmp/cwl/datafiles/Homo_sapiens.GRCh37.GATK.illumina/Homo_sapiens.GRCh37.GATK.illumina.fasta
 
 bwa_in1_fastq: [
-    {class: File, path: /hpc/tmp/cwl/datafiles/na12878_wgs_brcagenes-1.fastq}, 
+    {class: File, path: /hpc/tmp/cwl/datafiles/na12878_wgs_brcagenes-1.fastq},
     {class: File, path: /hpc/tmp/cwl/datafiles/na12878_wgs_brcagenes-3.fastq}
 
 ]
@@ -14,8 +14,8 @@ bwa_in2_fastq: [
 ]
 
 bwa_out_sam_filename: [
-    scatter-workflow-1_2.sam, 
-    scatter-workflow-3_4.sam
+    na12878-1_2.sam,
+    na12878-3_4.sam
 ]
 
 bwa_readgroup: [
@@ -29,26 +29,26 @@ bwa_M: true
 sambamba_sam-input: true
 sambamba_output_format: bam
 
-markdup_out_bam_filename: markdup.bam
+markdup_out_bam_filename: na12878.markdup.bam
 
 gatk_jar:
     class: File
     path: /hpc/tmp/cwl/software/GenomeAnalysisTK-3.4-46/GenomeAnalysisTK.jar
 
-haplotype_caller_vcf_out: variants.vcf
+haplotype_caller_vcf_out: na12878.raw_variants.vcf
 
 select_variants_types: [ [ SNP, NO_VARIATION ], [ INDEL ] ]
 select_variants_out: [ snp.vcf, indel.vcf ]
 
 variant_filtration_out: [ snp_filtered.vcf, indel_filtered.vcf ]
-variant_filtration_names: [ 
-    [ SNP_LowQualityDepth, SNP_MappingQuality, SNP_StrandBias, SNP_HaplotypeScoreHigh, SNP_MQRankSumLow, SNP_ReadPosRankSumLow ], 
-    [ INDEL_LowQualityDepth, INDEL_StrandBias, INDEL_ReadPosRankSumLow ] 
-] 
+variant_filtration_names: [
+    [ SNP_LowQualityDepth, SNP_MappingQuality, SNP_StrandBias, SNP_HaplotypeScoreHigh, SNP_MQRankSumLow, SNP_ReadPosRankSumLow ],
+    [ INDEL_LowQualityDepth, INDEL_StrandBias, INDEL_ReadPosRankSumLow ]
+]
 variant_filtration_exp: [
     [ QD < 2.0, MQ < 40.0, FS > 60.0, HaplotypeScore > 13.0, MQRankSum < -12.5, ReadPosRankSum < -8.0  ],
     [ QD < 2.0, FS > 200.0, ReadPosRankSum < -20.0  ]
 ]
 
-combine_variants_out: combine_variants.vcf
+combine_variants_out: na12878.filtered_variants.vcf
 assume_identical_samples: true
